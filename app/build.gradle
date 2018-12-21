@@ -1,0 +1,92 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs'
+}
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.dudzak.brocode"
+        minSdkVersion 16
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    dataBinding {
+        enabled true
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+
+    // kotlin
+    implementation kotlinx.stdlib
+
+    // androidx
+    implementation androidx.core
+    implementation androidx.appcompat
+    implementation androidx.material_design
+    implementation androidx.constraint_layout
+    implementation androidx.lifecycle_extensions
+
+    // dagger
+    implementation dagger.runtime
+    implementation dagger.android
+    implementation dagger.android_support
+    kapt dagger.compiler
+    kapt dagger.android_compiler
+
+    // retrofit & okhttp3
+    implementation retrofit.runtime
+    implementation retrofit.converter_gson
+    implementation retrofit.adapter_rxjava2
+    implementation okhttp3.runtime
+    implementation okhttp3.logging_interceptor
+
+    // room
+    implementation room.runtime
+    implementation room.rxjava2
+    kapt room.compiler
+
+    // navigation
+    implementation navigation.ui
+    implementation navigation.fragment
+
+    // rx
+    implementation rx.kotlin
+    implementation rx.android
+    implementation rx.bindings
+    implementation rx.bindings_appcompat
+
+    debugImplementation leakcanary
+    debugImplementation stetho.runtime
+    debugImplementation stetho.okhttp3
+
+    // test dependencies
+    testImplementation test.junit
+    testImplementation test.mockito
+    androidTestImplementation test.mockito_android
+    androidTestImplementation test.runner
+    androidTestImplementation test.espresso
+
+    // android test libraries
+    testImplementation (test.androidx_arch_core_testing, test.androidx_arch_core_testing_exclude)
+    androidTestImplementation test.androidx_arch_core_testing
+    androidTestImplementation test.androidx_core
+    testImplementation room.testing
+}
